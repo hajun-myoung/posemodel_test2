@@ -39,7 +39,7 @@ class Object_Detector {
         options.maxResults = 5
         
         do{
-            let objectDetector = try ObjectDetector(options: options)
+            objectDetector = try ObjectDetector(options: options)
         }
         catch {
             print("Error has been occurred while createding Object Detector")
@@ -51,8 +51,44 @@ class Object_Detector {
     
     //MARK: Object Detector by MediaPipe only get the MPImage
     /// You can convert the uiimage to the mpimage with this method: `MPImage(uiimage: uiimage)`
-    func analyse_image(image: MPImage){
+    func analyse_image(image: UIImage) -> CGRect?{
+        let objectDetector = self.objectDetector
+        var mpimage: MPImage
+        var result: ObjectDetectorResult? = nil
         
+        do {
+            mpimage = try MPImage(uiImage: image)
+        } catch {
+            print("Failed to convert UIImage to MPImage")
+            return nil
+        }
+            
+        do {
+            result = try objectDetector?.detect(image: mpimage)
+        }
+        catch {
+            print("Error to detect some objects on given image")
+            return nil
+        }
+        
+        var isPersonIncluded:Bool = false
+        var humanCoordinates:CGRect? = nil
+        
+        result?.detections.forEach({
+            $0.categories.forEach({
+                if $0.categoryName == "person" {
+                    isPersonIncluded = true
+                }
+            })
+            humanCoordinates = $0.boundingBox
+        })
+        
+        if isPersonIncluded {
+            return humanCoordinates
+        }
+        else {
+            print("There are no one detected 'Person' Object")
+            return nil
+        }
     }
-
 }
