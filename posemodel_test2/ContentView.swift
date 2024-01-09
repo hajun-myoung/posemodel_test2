@@ -15,6 +15,7 @@ var Person_BoundingBox: CGRect? = nil
 
 struct ContentView: View {
     @State var boundedImage: UIImage? = nil
+    @State var croppedImage: UIImage? = nil
     
     var body: some View {
         ScrollView{
@@ -24,7 +25,6 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .cornerRadius(10)
-                        .padding()
                 }
                 
                 Button{
@@ -64,9 +64,27 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .cornerRadius(10)
-                        .padding()
                 }
                 
+                Button {
+                    croppedImage = Crop_with_margin(
+                        image: testImage!, margin_ratio: 0.2, to: Person_BoundingBox!
+                    )
+                }label: {
+                    Label("Crop the Image", systemImage: "scissors")
+                        .font(.system(size: 24, weight: .bold))
+                }
+                
+                if let croppedImage {
+                    let size = croppedImage.size
+                    let ratio = size.height / size.width
+                    let newWidth = 300.0
+                    let newHeight = newWidth * ratio
+                    Image(uiImage: croppedImage)
+                        .resizable()
+                        .frame(width: newWidth, height: newHeight)
+                        .cornerRadius(10)
+                }
             }
         }
     }
