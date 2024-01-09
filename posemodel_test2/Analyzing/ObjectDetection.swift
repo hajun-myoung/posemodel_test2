@@ -73,14 +73,19 @@ class Object_Detector {
         
         var isPersonIncluded:Bool = false
         var humanCoordinates:CGRect? = nil
+        var detectedObjectList: [String?]? = []
         
         result?.detections.forEach({
+            var categoryName: String? = nil
             $0.categories.forEach({
-                if $0.categoryName == "person" {
-                    isPersonIncluded = true
-                }
+                categoryName = $0.categoryName
+                detectedObjectList?.append(categoryName)
             })
-            humanCoordinates = $0.boundingBox
+            
+            if categoryName == "person" {
+                humanCoordinates = $0.boundingBox
+                isPersonIncluded = true
+            }
         })
         
         if isPersonIncluded {
@@ -88,6 +93,10 @@ class Object_Detector {
         }
         else {
             print("There are no one detected 'Person' Object")
+            
+            print("\nDetected Objects List:")
+            dump(detectedObjectList)
+            
             return nil
         }
     }

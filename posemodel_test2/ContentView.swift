@@ -11,8 +11,11 @@ import UIKit
 
 var ObjectDetectionModel: Object_Detector? = nil
 let testImage: UIImage? = UIImage(named: "testimage")!
+var Person_BoundingBox: CGRect? = nil
 
 struct ContentView: View {
+    @State var boundedImage: UIImage? = nil
+    
     var body: some View {
         ScrollView{
             VStack {
@@ -33,12 +36,37 @@ struct ContentView: View {
                 .padding()
                 
                 Button {
-                    ObjectDetectionModel?.analyse_image(image: testImage!)
+                    Person_BoundingBox = ObjectDetectionModel?.analyse_image(image: testImage!)
+                    print("Detected!")
                 } label: {
                     Label("Detect the Objects", systemImage: "shippingbox.fill")
                         .font(.system(size: 24, weight: .bold))
                 }
                 .padding()
+                
+                Button {
+                    if let Person_BoundingBox {
+                        boundedImage = draw_boudingBox(
+                            image: testImage!, boundingBox: Person_BoundingBox
+                        )
+                    }
+                    else
+                    {
+                        print("No Bounding Box for Human Detected")
+                    }
+                } label: {
+                    Label("Drawing the Bounding box for Person", systemImage: "hand.draw.fill")
+                        .font(.system(size: 24, weight: .bold))
+                }
+                
+                if let boundedImage {
+                    Image(uiImage: boundedImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(10)
+                        .padding()
+                }
+                
             }
         }
     }
