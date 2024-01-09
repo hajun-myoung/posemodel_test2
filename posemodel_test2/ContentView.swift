@@ -9,15 +9,16 @@ import SwiftUI
 import Foundation
 import UIKit
 
-private var overlayViewFrame: CGRect?
-private var previewViewFrame: CGRect?
-
 struct ContentView: View {
-    @State var showImage: Bool = false
-    
     var body: some View {
         ScrollView{
             VStack {
+                Button{
+                    
+                } label: {
+                    Label("Load Model", systemImage: "tray.and.arrow.down.fill")
+                        .font(.system(size: 24, weight: .bold))
+                }
                 
             }
         }
