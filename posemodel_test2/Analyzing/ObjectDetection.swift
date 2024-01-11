@@ -65,8 +65,8 @@ class Object_Detector {
         from source: CGRect,
         to dest: CGSize
     ) {
-        let inputData = preprocess(of: pixelbuffer, from: source)
-//        let outputData =
+        let inputData = preprocess(of: pixelbuffer, from: source)!
+        inference(from: inputData)
     }
     
     /// Preprocessing
@@ -94,5 +94,27 @@ class Object_Detector {
         }
         
         return inputData
+    }
+    
+    /// Inferencing: Run Model, Got Result Data
+    ///
+    /// - Parameters
+    ///     - data: Data
+    /// - Returns:Nothing. Just Update the Tensors
+    private func inference(from data: Data){
+        do {
+            /// Inserting Data
+            try interpreter.copy(data, toInputAt: 0)
+            /// Run Model
+            try interpreter.invoke()
+            
+            /// Update Tensors
+            heatsTensor = try interpreter.output(at: 0)
+            offsetsTensor = try interpreter.output(at: 1)
+        }
+        catch {
+            os_log("Failed to invoke the Object Detection", type: .error)
+            return
+        }
     }
 }
