@@ -13,12 +13,12 @@ import UIKit
 let testImage: UIImage = UIImage(named: "testimage")!
 var ObjectDetectionModel: Object_Detector? = nil
 var Person_BoundingBox: CGRect? = nil
-var pixelbuffer320: CVPixelBuffer? = nil
 
 struct ContentView: View {
-    @State var boundedImage: UIImage? = nil
-    @State var croppedImage: UIImage? = nil
+//    @State var boundedImage: UIImage? = nil
+//    @State var croppedImage: UIImage? = nil
     @State var resizedImage: UIImage? = nil
+    @State var pixelbuffer320: CVPixelBuffer? = nil
     
     var body: some View {
         ScrollView{
@@ -39,13 +39,13 @@ struct ContentView: View {
                 Button{
                     resizedImage = Make_square_form(image: testImage)
                 }label: {
-                    Label("Image to 320 PixelBuffer", systemImage: "chart.bar.doc.horizontal")
+                    Label("Image to PixelBuffer", systemImage: "chart.bar.doc.horizontal")
                         .font(.system(size: 24, weight: .bold))
                 }
                 .padding()
                 
                 // MARK: Show resized image if it does
-                if let resizedImage = resizedImage {
+                if let resizedImage {
                     Image(uiImage: resizedImage)
                           .resizable()
                           .aspectRatio(contentMode: .fit)
@@ -54,6 +54,37 @@ struct ContentView: View {
                     Text("No Resized Image is Loaded Yet")
                         .font(.system(size: 20, design: .serif))
                 }
+                
+                Button {
+                    pixelbuffer320 = Downgrade_Resolution_from_UIImage(image: resizedImage!, dest: 320)
+                } label: {
+                    Label("Resize Pixelbuffer", systemImage: "shippingbox.fill")
+                        .font(.system(size: 24, weight: .bold))
+                }
+                .padding()
+                
+                if let pixelbuffer320 {
+                    Image(uiImage: UIImage(pixelBuffer: pixelbuffer320)!)
+                          .resizable()
+                          .aspectRatio(contentMode: .fit)
+                          .padding()
+                } else {
+                    Text("No Downgraded PixelBuffer is Loaded Yet")
+                        .font(.system(size: 20, design: .serif))
+                }
+                
+                Button {
+                    ObjectDetectionModel?.DetectObject(
+                        on: pixelbuffer320!,
+                        from: CGRect(x: 0, y: 0, width: 320, height: 320),
+                        to: CGSize(width: 320, height: 320)
+                    )
+                } label: {
+                    Label("Detect Object", systemImage: "magnifyingglass.circle")
+                        .font(.system(size: 24, weight: .bold))
+                }
+                .padding()
+                
 
 //                Button {
 //                    Person_BoundingBox = ObjectDetectionModel?.DetectObject(on: pixelbuffer320, from: <#T##CGRect#>, to: <#T##CGSize#>)

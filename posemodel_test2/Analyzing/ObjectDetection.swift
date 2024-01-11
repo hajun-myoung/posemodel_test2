@@ -50,6 +50,12 @@ class Object_Detector {
         }
     }
     
+    /// Detecting Object
+    ///
+    /// - Parameters
+    ///     - on: Input Image Pixelbuffer
+    ///     - from: CGRect, Input Image Range
+    ///     - to: CGSize, Result Size
     func DetectObject(
         on pixelbuffer: CVPixelBuffer,
         from source: CGRect,
@@ -58,6 +64,12 @@ class Object_Detector {
         preprocess(of: pixelbuffer, from: source)
     }
     
+    /// Preprocessing
+    ///
+    /// - Parameters
+    ///     - of: Input Image Pixelbuffer
+    ///     - from: Get From Source, Input Image's Range
+    /// - Returns: 320 by 320 pixelBuffer, without alpha value
     private func preprocess(
         of pixelbuffer: CVPixelBuffer,
         from targetSquare: CGRect

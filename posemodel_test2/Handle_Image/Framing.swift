@@ -36,7 +36,13 @@ func Make_square_form(image: UIImage) -> UIImage {
     return squaredImage
 }
 
-func Downgrade_resolution(image: UIImage, dest: Int) -> UIImage {
+/// Downgrade Image's Resolution(Image to PixelBuffer)
+///
+/// - Parameters
+///     - image: Input Image
+///     - dest: Target distance
+/// - Returns: Downgraded CVPixelBuffer, not an UIImage
+func Downgrade_Resolution_from_UIImage(image: UIImage, dest: Int) -> CVPixelBuffer {
     let size = image.size
     let newSize = CGSize(width: dest, height: dest)
     
@@ -48,7 +54,35 @@ func Downgrade_resolution(image: UIImage, dest: Int) -> UIImage {
     let sourceRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
     let downgradedBuffer = pixelbuffer?.resize(from: sourceRect, to: newSize)
     
-    let downgradedImage = UIImage(pixelBuffer: downgradedBuffer!)!
+    if let downgradedBuffer {
+        return downgradedBuffer
+    }
+    else {
+        fatalError("No Pixel Buffer")
+    }
+}
+
+/// Downgrade Image's Resolution(PixelBuffer to PixelBuffer)
+///
+/// - Parameters
+///     - image: Input PixelBuffer
+///     - dest: Target distance
+/// - Returns: Downgraded CVPixelBuffer
+func Downgrade_Resolution_from_Pixelbuffer(buffer: CVPixelBuffer, dest: Int) -> CVPixelBuffer {
+    let size = buffer.size
+    let newSize = CGSize(width: dest, height: dest)
     
-    return downgradedImage
+    if size.width != size.height {
+        fatalError("Image's width and height is not same. Use *Make_square_form* func")
+    }
+    
+    let sourceRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    let downgradedBuffer = buffer.resize(from: sourceRect, to: newSize)
+    
+    if let downgradedBuffer {
+        return downgradedBuffer
+    }
+    else {
+        fatalError("No Pixel Buffer")
+    }
 }
