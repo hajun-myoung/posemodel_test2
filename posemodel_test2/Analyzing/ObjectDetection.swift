@@ -7,10 +7,16 @@
 
 import Foundation
 import TensorFlowLite
+import os
 
-struct Model {
-    let name: String
-    let extensions: String
+typealias FileInfo = (filename: String, extension: String)
+enum Model{
+    static let FileInfo = (
+        filename: "efficientdet_lite0",
+        extension: "tflite"
+    )
+
+    static let isQuantized = false
 }
 
 class Object_Detector {
@@ -24,11 +30,9 @@ class Object_Detector {
     {
         do
         {
-            let objectDetectionModelFile = Model(name: "efficientdet_lite0", extensions: "tflite")
-
             //MARK: Loading Model File
             let modelPath = Bundle.main.path(
-                forResource: objectDetectionModelFile.name, ofType: objectDetectionModelFile.extensions
+                forResource: Model.FileInfo.filename, ofType: Model.FileInfo.extension
             )
             
             interpreter = try Interpreter(modelPath: modelPath!)
@@ -61,7 +65,8 @@ class Object_Detector {
         from source: CGRect,
         to dest: CGSize
     ) {
-        preprocess(of: pixelbuffer, from: source)
+        let inputData = preprocess(of: pixelbuffer, from: source)
+//        let outputData =
     }
     
     /// Preprocessing
@@ -73,8 +78,21 @@ class Object_Detector {
     private func preprocess(
         of pixelbuffer: CVPixelBuffer,
         from targetSquare: CGRect
-    ){
+    ) -> Data?
+    {
         let pixelFormat = CVPixelBufferGetPixelFormatType(pixelbuffer)
-        print(pixelFormat)
+        assert(pixelFormat == kCVPixelFormatType_32ABGR
+            || pixelFormat == kCVPixelFormatType_32ARGB
+            || pixelFormat == kCVPixelFormatType_32BGRA
+            || pixelFormat == kCVPixelFormatType_32RGBA
+        )
+        
+        guard let inputData = pixelbuffer.rgbData(isModelQuantized: Model.isQuantized)
+        else {
+            os_log("Failed to convert PixelBuffer to RGB Data", type: .error)
+            return nil
+        }
+        
+        return inputData
     }
 }
