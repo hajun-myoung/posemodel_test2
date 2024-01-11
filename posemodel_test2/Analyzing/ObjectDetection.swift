@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MediaPipeTasksVision
+import TensorFlowLite
 
 struct Model {
     let name: String
@@ -14,90 +14,91 @@ struct Model {
 }
 
 class Object_Detector {
-    var objectDetector: ObjectDetector? = nil
+    private var interpreter: Interpreter
     
-    init(){
-        print("\nInitialize The Object Detector...")
-        self.objectDetector = Load_ObjectDetection()
-    }
+    private var inputTensor: Tensor
+    private var heatsTensor: Tensor
+    private var offsetsTensor: Tensor
     
-    private func Load_ObjectDetection() -> ObjectDetector? {
-        let objectDetectionModel = Model(name: "efficientdet_lite0", extensions: "tflite")
+    init()
+    {
+        do
+        {
+            let objectDetectionModelFile = Model(name: "efficientdet_lite0", extensions: "tflite")
 
-        //MARK: Loading Model File
-        guard let modelPath = Bundle.main.path(forResource: objectDetectionModel.name, ofType: objectDetectionModel.extensions)
-        else {
-            print("No model file named \(objectDetectionModel.name)")
-            return nil
+            //MARK: Loading Model File
+            let modelPath = Bundle.main.path(
+                forResource: objectDetectionModelFile.name, ofType: objectDetectionModelFile.extensions
+            )
+            
+            interpreter = try Interpreter(modelPath: modelPath!)
+            try interpreter.allocateTensors()
+            
+            inputTensor = try interpreter.input(at: 0)
+            heatsTensor = try interpreter.output(at: 0)
+            offsetsTensor = try interpreter.output(at: 1)
+            
+            // Testing Model's Tensors
+             print("Tensors:")
+             print("input: \(inputTensor)")
+             print("output: \(heatsTensor)")
+             print("offset: \(offsetsTensor)")
+            
         }
-
-        //MARK: Setting Object Dection Configurations Up
-        /// Below code are given by Mediapipe, Google
-        let options = ObjectDetectorOptions()
-        options.baseOptions.modelAssetPath = modelPath
-        options.runningMode = .image
-        options.maxResults = 5
-        
-        do{
-            objectDetector = try ObjectDetector(options: options)
+        catch{
+            fatalError("Failed to Initialize Object Detection Model")
         }
-        catch {
-            print("Error has been occurred while createding Object Detector")
-            return nil
-        }
-        
-        return objectDetector
     }
     
     //MARK: Object Detector by MediaPipe only get the MPImage
     /// You can convert the uiimage to the mpimage with this method: `MPImage(uiimage: uiimage)`
-    func analyse_image(image: UIImage) -> CGRect?{
-        let objectDetector = self.objectDetector
-        var mpimage: MPImage
-        var result: ObjectDetectorResult? = nil
-        
-        do {
-            mpimage = try MPImage(uiImage: image)
-        } catch {
-            print("Failed to convert UIImage to MPImage")
-            return nil
-        }
-            
-        do {
-            result = try objectDetector?.detect(image: mpimage)
-        }
-        catch {
-            print("Error to detect some objects on given image")
-            return nil
-        }
-        
-        var isPersonIncluded:Bool = false
-        var humanCoordinates:CGRect? = nil
-        var detectedObjectList: [String?]? = []
-        
-        result?.detections.forEach({
-            var categoryName: String? = nil
-            $0.categories.forEach({
-                categoryName = $0.categoryName
-                detectedObjectList?.append(categoryName)
-            })
-            
-            if categoryName == "person" {
-                humanCoordinates = $0.boundingBox
-                isPersonIncluded = true
-            }
-        })
-        
-        if isPersonIncluded {
-            return humanCoordinates
-        }
-        else {
-            print("There are no one detected 'Person' Object")
-            
-            print("\nDetected Objects List:")
-            dump(detectedObjectList)
-            
-            return nil
-        }
-    }
+//    func analyse_image(image: UIImage) -> CGRect?{
+//        let objectDetector = self.objectDetector
+//        var mpimage: MPImage
+//        var result: ObjectDetectorResult? = nil
+//        
+//        do {
+//            mpimage = try MPImage(uiImage: image)
+//        } catch {
+//            print("Failed to convert UIImage to MPImage")
+//            return nil
+//        }
+//            
+//        do {
+//            result = try objectDetector?.detect(image: mpimage)
+//        }
+//        catch {
+//            print("Error to detect some objects on given image")
+//            return nil
+//        }
+//        
+//        var isPersonIncluded:Bool = false
+//        var humanCoordinates:CGRect? = nil
+//        var detectedObjectList: [String?]? = []
+//        
+//        result?.detections.forEach({
+//            var categoryName: String? = nil
+//            $0.categories.forEach({
+//                categoryName = $0.categoryName
+//                detectedObjectList?.append(categoryName)
+//            })
+//            
+//            if categoryName == "person" {
+//                humanCoordinates = $0.boundingBox
+//                isPersonIncluded = true
+//            }
+//        })
+//        
+//        if isPersonIncluded {
+//            return humanCoordinates
+//        }
+//        else {
+//            print("There are no one detected 'Person' Object")
+//            
+//            print("\nDetected Objects List:")
+//            dump(detectedObjectList)
+//            
+//            return nil
+//        }
+//    }
 }
