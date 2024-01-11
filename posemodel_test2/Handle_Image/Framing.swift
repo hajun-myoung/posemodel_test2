@@ -21,3 +21,34 @@ func Crop_with_margin(image: UIImage, margin_ratio: Double, to: CGRect) -> UIIma
     
     return UIImage(cgImage: cropped_image!)
 }
+
+func Make_square_form(image: UIImage) -> UIImage {
+    let size = image.size
+    let distance = Int(size.width > size.height ? size.width : size.height)
+    
+    let newSize = CGSize(width: distance, height: distance)
+    
+    let renderer = UIGraphicsImageRenderer(size: newSize)
+    let squaredImage = renderer.image { context in
+        image.draw(at: CGPointZero)
+    }
+    
+    return squaredImage
+}
+
+func Downgrade_resolution(image: UIImage, dest: Int) -> UIImage {
+    let size = image.size
+    let newSize = CGSize(width: dest, height: dest)
+    
+    if size.width != size.height {
+        fatalError("Image's width and height is not same. Use *Make_square_form* func")
+    }
+    
+    let pixelbuffer = buffer(from: image)
+    let sourceRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    let downgradedBuffer = pixelbuffer?.resize(from: sourceRect, to: newSize)
+    
+    let downgradedImage = UIImage(pixelBuffer: downgradedBuffer!)!
+    
+    return downgradedImage
+}

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		A907EAEA62F8949A9CAB0143 /* Pods_posemodel_test2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94468B19E4EA550CABAFC2DD /* Pods_posemodel_test2.framework */; };
 		F945AAE22B4FB0AF009C2D61 /* pose_landmark_full.tflite in Resources */ = {isa = PBXBuildFile; fileRef = F945AAE12B4FB0AF009C2D61 /* pose_landmark_full.tflite */; };
+		F945AAE42B4FD624009C2D61 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945AAE32B4FD624009C2D61 /* Converter.swift */; };
+		F945AAE62B4FD834009C2D61 /* CVPixelBufferExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945AAE52B4FD834009C2D61 /* CVPixelBufferExtension.swift */; };
+		F945AAE82B4FD8C2009C2D61 /* VideoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945AAE72B4FD8C2009C2D61 /* VideoExtension.swift */; };
+		F945AAEA2B4FD931009C2D61 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945AAE92B4FD931009C2D61 /* Constants.swift */; };
+		F945AAEC2B4FD996009C2D61 /* TFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945AAEB2B4FD996009C2D61 /* TFExtension.swift */; };
 		F9A3432F2B4BE0C200466379 /* posemodel_test2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A3432E2B4BE0C200466379 /* posemodel_test2App.swift */; };
 		F9A343312B4BE0C200466379 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343302B4BE0C200466379 /* ContentView.swift */; };
 		F9A343332B4BE0C400466379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9A343322B4BE0C400466379 /* Assets.xcassets */; };
@@ -24,6 +29,11 @@
 		3016207EDDD40A244D448940 /* Pods-posemodel_test2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-posemodel_test2.release.xcconfig"; path = "Target Support Files/Pods-posemodel_test2/Pods-posemodel_test2.release.xcconfig"; sourceTree = "<group>"; };
 		94468B19E4EA550CABAFC2DD /* Pods_posemodel_test2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_posemodel_test2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F945AAE12B4FB0AF009C2D61 /* pose_landmark_full.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmark_full.tflite; sourceTree = "<group>"; };
+		F945AAE32B4FD624009C2D61 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		F945AAE52B4FD834009C2D61 /* CVPixelBufferExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVPixelBufferExtension.swift; sourceTree = "<group>"; };
+		F945AAE72B4FD8C2009C2D61 /* VideoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoExtension.swift; sourceTree = "<group>"; };
+		F945AAE92B4FD931009C2D61 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F945AAEB2B4FD996009C2D61 /* TFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFExtension.swift; sourceTree = "<group>"; };
 		F9A3432B2B4BE0C200466379 /* posemodel_test2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = posemodel_test2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9A3432E2B4BE0C200466379 /* posemodel_test2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = posemodel_test2App.swift; sourceTree = "<group>"; };
 		F9A343302B4BE0C200466379 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +139,7 @@
 			children = (
 				F9A343442B4D253F00466379 /* Draw.swift */,
 				F9A343462B4D3CEF00466379 /* Framing.swift */,
+				F945AAE32B4FD624009C2D61 /* Converter.swift */,
 			);
 			path = Handle_Image;
 			sourceTree = "<group>";
@@ -136,6 +147,10 @@
 		F9A3434A2B4E2FCA00466379 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F945AAE52B4FD834009C2D61 /* CVPixelBufferExtension.swift */,
+				F945AAE72B4FD8C2009C2D61 /* VideoExtension.swift */,
+				F945AAE92B4FD931009C2D61 /* Constants.swift */,
+				F945AAEB2B4FD996009C2D61 /* TFExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -241,8 +256,13 @@
 				F9A343422B4BEE3C00466379 /* ObjectDetection.swift in Sources */,
 				F9A343452B4D253F00466379 /* Draw.swift in Sources */,
 				F9A343312B4BE0C200466379 /* ContentView.swift in Sources */,
+				F945AAEC2B4FD996009C2D61 /* TFExtension.swift in Sources */,
+				F945AAE82B4FD8C2009C2D61 /* VideoExtension.swift in Sources */,
 				F9A343472B4D3CEF00466379 /* Framing.swift in Sources */,
+				F945AAE42B4FD624009C2D61 /* Converter.swift in Sources */,
 				F9A3432F2B4BE0C200466379 /* posemodel_test2App.swift in Sources */,
+				F945AAE62B4FD834009C2D61 /* CVPixelBufferExtension.swift in Sources */,
+				F945AAEA2B4FD931009C2D61 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

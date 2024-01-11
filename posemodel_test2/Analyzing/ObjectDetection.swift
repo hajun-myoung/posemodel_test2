@@ -50,4 +50,19 @@ class Object_Detector {
         }
     }
     
+    func DetectObject(
+        on pixelbuffer: CVPixelBuffer,
+        from source: CGRect,
+        to dest: CGSize
+    ) {
+        preprocess(of: pixelbuffer, from: source)
+    }
+    
+    private func preprocess(
+        of pixelbuffer: CVPixelBuffer,
+        from targetSquare: CGRect
+    ){
+        let pixelFormat = CVPixelBufferGetPixelFormatType(pixelbuffer)
+        print(pixelFormat)
+    }
 }
