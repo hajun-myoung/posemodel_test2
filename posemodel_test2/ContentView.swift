@@ -85,6 +85,8 @@ struct ContentView: View {
                         .frame(width: newWidth, height: newHeight)
                         .cornerRadius(10)
                 }
+                
+                
             }
         }
     }

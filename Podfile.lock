@@ -1,32 +1,16 @@
 PODS:
-  - MediaPipeTasksCommon (0.10.9)
-  - MediaPipeTasksVision (0.10.9):
-    - MediaPipeTasksCommon (= 0.10.9)
-  - TensorFlowLiteC (2.14.0):
-    - TensorFlowLiteC/Core (= 2.14.0)
-  - TensorFlowLiteC/Core (2.14.0)
-  - TensorFlowLiteSwift (2.14.0):
-    - TensorFlowLiteSwift/Core (= 2.14.0)
-  - TensorFlowLiteSwift/Core (2.14.0):
-    - TensorFlowLiteC (= 2.14.0)
+  - TensorFlowLite (1.13.1)
 
 DEPENDENCIES:
-  - MediaPipeTasksVision
-  - TensorFlowLiteSwift
+  - TensorFlowLite
 
 SPEC REPOS:
   trunk:
-    - MediaPipeTasksCommon
-    - MediaPipeTasksVision
-    - TensorFlowLiteC
-    - TensorFlowLiteSwift
+    - TensorFlowLite
 
 SPEC CHECKSUMS:
-  MediaPipeTasksCommon: c97fece495f7d4d454230d7894052aa73830244c
-  MediaPipeTasksVision: a0a929c7818c142078e93bc271720100f53e3c3d
-  TensorFlowLiteC: a836de9b6e6018665ccc349538bdd2c3b80dd7a5
-  TensorFlowLiteSwift: f706b143b69d7bf433aba7b08049bdd11c321a10
+  TensorFlowLite: 8b9dc4eb32eac0f8cb660c66bca7604da56dcc5a
 
-PODFILE CHECKSUM: 2438658db4736dd21935e6ac657ce3af554d1b0a
+PODFILE CHECKSUM: 0a7c34b339862ab13f01732b993178d665131a67
 
 COCOAPODS: 1.14.3

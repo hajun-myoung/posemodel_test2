@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A907EAEA62F8949A9CAB0143 /* Pods_posemodel_test2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94468B19E4EA550CABAFC2DD /* Pods_posemodel_test2.framework */; };
+		F945AAE22B4FB0AF009C2D61 /* pose_landmark_full.tflite in Resources */ = {isa = PBXBuildFile; fileRef = F945AAE12B4FB0AF009C2D61 /* pose_landmark_full.tflite */; };
 		F9A3432F2B4BE0C200466379 /* posemodel_test2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A3432E2B4BE0C200466379 /* posemodel_test2App.swift */; };
 		F9A343312B4BE0C200466379 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343302B4BE0C200466379 /* ContentView.swift */; };
 		F9A343332B4BE0C400466379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9A343322B4BE0C400466379 /* Assets.xcassets */; };
@@ -16,13 +17,13 @@
 		F9A343422B4BEE3C00466379 /* ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343412B4BEE3C00466379 /* ObjectDetection.swift */; };
 		F9A343452B4D253F00466379 /* Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343442B4D253F00466379 /* Draw.swift */; };
 		F9A343472B4D3CEF00466379 /* Framing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343462B4D3CEF00466379 /* Framing.swift */; };
-		F9A343492B4E2FB600466379 /* PoseLandmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A343482B4E2FB600466379 /* PoseLandmark.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2BBC9423D8797E3C0DBA488C /* Pods-posemodel_test2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-posemodel_test2.debug.xcconfig"; path = "Target Support Files/Pods-posemodel_test2/Pods-posemodel_test2.debug.xcconfig"; sourceTree = "<group>"; };
 		3016207EDDD40A244D448940 /* Pods-posemodel_test2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-posemodel_test2.release.xcconfig"; path = "Target Support Files/Pods-posemodel_test2/Pods-posemodel_test2.release.xcconfig"; sourceTree = "<group>"; };
 		94468B19E4EA550CABAFC2DD /* Pods_posemodel_test2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_posemodel_test2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F945AAE12B4FB0AF009C2D61 /* pose_landmark_full.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = pose_landmark_full.tflite; sourceTree = "<group>"; };
 		F9A3432B2B4BE0C200466379 /* posemodel_test2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = posemodel_test2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9A3432E2B4BE0C200466379 /* posemodel_test2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = posemodel_test2App.swift; sourceTree = "<group>"; };
 		F9A343302B4BE0C200466379 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,7 +34,6 @@
 		F9A343412B4BEE3C00466379 /* ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetection.swift; sourceTree = "<group>"; };
 		F9A343442B4D253F00466379 /* Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Draw.swift; sourceTree = "<group>"; };
 		F9A343462B4D3CEF00466379 /* Framing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Framing.swift; sourceTree = "<group>"; };
-		F9A343482B4E2FB600466379 /* PoseLandmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseLandmark.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +110,7 @@
 		F9A3433D2B4BED6C00466379 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F945AAE12B4FB0AF009C2D61 /* pose_landmark_full.tflite */,
 				F9A3433E2B4BED7F00466379 /* efficientdet_lite0.tflite */,
 			);
 			path = Models;
@@ -119,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				F9A343412B4BEE3C00466379 /* ObjectDetection.swift */,
-				F9A343482B4E2FB600466379 /* PoseLandmark.swift */,
 			);
 			path = Analyzing;
 			sourceTree = "<group>";
@@ -200,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9A3433F2B4BEDBB00466379 /* efficientdet_lite0.tflite in Resources */,
+				F945AAE22B4FB0AF009C2D61 /* pose_landmark_full.tflite in Resources */,
 				F9A343362B4BE0C400466379 /* Preview Assets.xcassets in Resources */,
 				F9A343332B4BE0C400466379 /* Assets.xcassets in Resources */,
 			);
@@ -239,7 +240,6 @@
 			files = (
 				F9A343422B4BEE3C00466379 /* ObjectDetection.swift in Sources */,
 				F9A343452B4D253F00466379 /* Draw.swift in Sources */,
-				F9A343492B4E2FB600466379 /* PoseLandmark.swift in Sources */,
 				F9A343312B4BE0C200466379 /* ContentView.swift in Sources */,
 				F9A343472B4D3CEF00466379 /* Framing.swift in Sources */,
 				F9A3432F2B4BE0C200466379 /* posemodel_test2App.swift in Sources */,

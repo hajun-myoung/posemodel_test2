@@ -6,6 +6,5 @@ target 'posemodel_test2' do
   use_frameworks!
 
   # Pods for posemodel_test2
-  pod 'MediaPipeTasksVision' # Object Detection
-  pod 'TensorFlowLiteSwift' # TFLite for PoseLandmark
+  pod 'TensorFlowLite'
 end
