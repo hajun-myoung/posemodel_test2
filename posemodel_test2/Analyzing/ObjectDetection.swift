@@ -19,6 +19,10 @@ enum Model{
     static let isQuantized = false
 }
 
+//struct Result {
+//    var
+//}
+
 class Object_Detector {
     private var interpreter: Interpreter
     
@@ -67,6 +71,7 @@ class Object_Detector {
     ) {
         let inputData = preprocess(of: pixelbuffer, from: source)!
         inference(from: inputData)
+        postprocess(to: CGSize(width: 320, height: 320))
     }
     
     /// Preprocessing
@@ -116,5 +121,13 @@ class Object_Detector {
             os_log("Failed to invoke the Object Detection", type: .error)
             return
         }
+    }
+    
+    private func postprocess(to viewSize: CGSize) {
+        print(heatsTensor)
+//        let bytes = heatsTensor.data.toArray(type: Float32.self)
+//        let floatArray = bytes.map { Float32($0) }
+        
+//        print(floatArray)
     }
 }
